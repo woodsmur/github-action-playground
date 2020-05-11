@@ -9,7 +9,7 @@ on:
       - 'releases/**'  # Push events to branches matching refs/heads/releases/10
     # Sequence of patterns matched against refs/tags
     tags:        
-      - v*           # Push events to v1.0, v1.1, and v1.9 tags
+      - v*.*.*           # Push events to v1.0.0, v1.1.0, and v1.9.0 tags
   pull_request:
     branches: [ master ]
 
@@ -30,6 +30,15 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
 
+    - name: Set env
+      uses: actions/checkout@v1
+      run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF:10}
+    
+    - name: Test release version
+      run: |
+        echo $RELEASE_VERSION
+        echo ${{ env.RELEASE_VERSION }}
+        
     - name: Get dependencies
       run: |
         go get -v -t -d ./...
@@ -37,7 +46,7 @@ jobs:
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             dep ensure
         fi
-
+  
     - name: Print github env
       run: |
         echo "Release ${{ github.ref }}"
