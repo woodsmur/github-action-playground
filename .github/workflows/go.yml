@@ -2,9 +2,17 @@ name: Go
 
 on:
   push:
-    branches: [ master ]
+    # Sequence of patterns matched against refs/heads
+    branches:    
+      - master         # Push events on master branch
+#       - 'mona/octocat' # Push events to branches matching refs/heads/mona/octocat
+      - 'releases/**'  # Push events to branches matching refs/heads/releases/10
+    # Sequence of patterns matched against refs/tags
+    tags:        
+      - v*           # Push events to v1.0, v1.1, and v1.9 tags
   pull_request:
     branches: [ master ]
+
 
 jobs:
 
