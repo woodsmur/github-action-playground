@@ -52,6 +52,7 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: woodsmur/github-action-playground
+        tags: $RELEASE_VERSION
 
     - name: Docker build push
       run: docker build -t woodsmur/github-action-playground:$RELEASE_VERSION .
