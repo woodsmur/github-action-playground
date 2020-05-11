@@ -3,10 +3,10 @@ name: Go
 on:
   push:
     # Sequence of patterns matched against refs/heads
-    branches:    
-      - master         # Push events on master branch
+#     branches:    
+#       - master         # Push events on master branch
 #       - 'mona/octocat' # Push events to branches matching refs/heads/mona/octocat
-      - 'releases/**'  # Push events to branches matching refs/heads/releases/10
+#       - 'releases/**'  # Push events to branches matching refs/heads/releases/10
     # Sequence of patterns matched against refs/tags
     tags:        
       - v*.*.*           # Push events to v1.0.0, v1.1.0, and v1.9.0 tags
@@ -46,12 +46,8 @@ jobs:
             dep ensure
         fi
   
-    - name: Print github env
-      run: |
-        echo "Release ${{ github.ref }}"
-
 #     - name: Build
 #       run: go build -v .
 
-#     - name: Test
-#       run: go test -v .
+    - name: Docker build push
+      run: docker build -t woodsmur/github-action-playground .
